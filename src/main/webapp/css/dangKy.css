@@ -1,0 +1,222 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+.warper {
+	width: auto;
+	height: 600px;
+	margin: auto;
+}
+
+.topp {
+	height: 100px;
+	background-color: rgb(255, 255, 255);
+}
+
+
+
+.ass {
+	max-width: 960px;
+	margin: 0px auto;
+}
+
+.header {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	background: #1b964e;
+}
+
+nav {
+	display: flex;
+	justify-content: space-between;
+	justify-items: center;
+}
+
+.logo {
+	padding: 5px 0px;
+}
+
+.logo img {
+	max-width: 50px;
+	height: auto;
+}
+
+.main-menu {
+	display: flex;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.main-menu li {
+	position: relative;
+}
+
+.main-menu li a {
+	color: white;
+	display: block;
+	padding: 20px 40px;
+	text-decoration: none;
+	font-size: 17px;
+}
+
+.main-menu ul.sup {
+	position: absolute;
+	background-color: #1b964e;
+	padding: 20px 0px;
+	list-style: none;
+	border: 1px solid rgb(109, 106, 106);
+	width: 200px;
+	display: none;
+	opacity: 80%;
+}
+
+.main-menu li:hover>ul.sup {
+	display: block;
+}
+
+.main-menu ul.sup a {
+	padding: 10px 20px;
+	border-bottom: 1px solid rgb(109, 106, 106);
+	left: 0;
+}
+
+.main-menu ul.sup li:hover>a {
+	border-bottom: 1px solid rgb(148, 144, 144);
+}
+
+.main-menu ul.sup li:last-child a {
+	border: none;
+}
+
+.main-menu ul.sup ul.sup {
+	left: 200px;
+	top: -15px;
+	opacity: 70%;
+}
+
+.banner {
+	height: auto;
+}
+
+.banner img {
+	width: 100%;
+	height: 100%;
+	/* opacity: 80%; */
+}
+
+.ten {
+	position: absolute;
+	top: 110px;
+	left: 300px;
+	color: #fff;
+	font-size: 20px;
+}
+
+h2 {
+	padding: 20px 0px;
+}
+
+.tell {
+	padding: 20px 0px;
+}
+
+.map {
+	width: 400px;
+	height: 200px;
+}
+
+.menu-c {
+	width: 236px;
+	height: 30px;
+	margin: 20px 0px;
+}
+
+.q1 {
+	height: 500px;
+	width: 400px;
+	background: rgb(71, 112, 80);
+	margin: 50px 30px 0px 0px;
+	padding: 20px 20px;
+}
+
+.cv {
+	padding-left: 300px;
+}
+
+.mua {
+	width: 200px;
+	height: 50px;
+	background: red;
+	border-radius: 20px;
+	padding: 5px;
+	margin: 5px 10px;
+	text-align: center;
+}
+
+.mua a {
+	color: white;
+	display: block;
+	padding: 5px 10px;
+	text-decoration: none;
+	font-size: 24px;
+}
+
+.mua:hover {
+	color: black;
+	background-color: rgb(90, 177, 109);
+}
+
+h1 {
+	text-align: center;
+	margin-bottom: 20px;
+	margin-right: 382px;
+}
+
+form {
+	width: 580px;
+	border-radius: 10px;
+	padding: 25px;
+	box-sizing: border-box;
+	border: 2px solid rgb(90, 177, 109);
+	margin-left: 25%;
+}
+
+.lab {
+	width: 90%;
+	padding: 8px 10px;
+	margin: 15px 0;
+	display: block;
+	border: 1px solid rgb(90, 177, 109);
+	border-radius: 4px;
+	outline: none;
+	font-size: 16px;
+}
+
+select {
+	font-size: 17px;
+	width: 94%;
+	padding: 8px 10px;
+	margin: 15px 0;
+	display: block;
+	border: 1px solid rgb(90, 177, 109);
+	border-radius: 4px;
+	outline: none;
+}
+
+label {
+	font-size: 18px;
+	margin-right: 8px;
+}
+
+.btn {
+	background-color: rgb(90, 177, 109);
+	text-align: center;
+	margin-right: 20px;
+	font-size: 18px;
+	color: white;
+}
