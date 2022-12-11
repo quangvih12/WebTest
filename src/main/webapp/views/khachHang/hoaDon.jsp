@@ -12,8 +12,65 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/sanpham.css">
 <script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script>
 
+
+function openModalRemoveSinhVien(Id) {  
+    $("#exampleModal").modal('show');
+    /*  fetch("${ pageContext.request.contextPath }/api/find" + "/" + Id)
+   		.then(response => response.json())
+   		.then(data => {
+   			const renderHtml = data.map(item => {
+   				console.log('item', item.diaChi)
+   				return (`
+   					<td>item.diaChi</td>
+   				`)
+   			})
+   			console.log('renderHtml', renderHtml)
+   			document.getElementById('dataHoaDon').innerHtml = renderHtml
+   		})
+   		
+   		console.log('ggg', Id)*/
+   		// document.getElementById('dataHoaDon')
+     $.ajax({
+        type: "GET",
+        contentType: "application/json",
+        url:"${ pageContext.request.contextPath }/api/find" + "/" + Id,
+        data: JSON.stringify(Id),
+        dataType: 'json',
+        success:function (responseData) {
+            console.log('responseData', responseData)
+         
+            $("#dataHoaDon").html(responseData.map(function (items) {
+              
+                console.log('itemid', items.id)
+            	return `
+           
+				<tr>
+            	<td>	\${items.id}</td>
+            	<td><img src="getimage/\${ items.chiTietSP.hinhAnh }" alt=""
+					class="anh" style="width: 100px"></td>
+				
+				<td>\${ items.chiTietSP.sanPham.ten }</td>
+				<td>\${ items.soLuong }</td>
+				<td>\${ items.hoaDon.tgTao }</td>
+				<td>\${ items.dongia }</td>
+				</tr>
+                `
+            }))
+	        
+		//    hàm map sẽ return về 1 đoạn template string chứa cả 1 dòng trong table
+		//    trong mảng có bao nhiêu phần tử sẽ lặp bấy nhiêu lần và hiển thị 
+        	
+        
+           
+        }
+    
+        
+    });
+}
+</script>
 
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
@@ -36,6 +93,11 @@
 
 </head>
 <body>
+
+
+
+
+
 	<div class="warper">
 		<div class="topp">
 			<div class="header">
@@ -81,6 +143,8 @@
 								Hàng</a></li>
 						<li><a href="${ pageContext.request.contextPath }/hoaDon">Hóa
 								Đơn</a></li>
+						<li><a href="${ pageContext.request.contextPath }/DangXuat">Đăng
+								Xuất</a></li>
 					</ul>
 
 				</nav>
@@ -88,6 +152,8 @@
 			</div>
 
 		</div>
+
+
 
 
 
@@ -99,16 +165,16 @@
 				<thead>
 					<tr>
 						<td>STT</td>
-						<td>Image</td>
-						<td>Product's name</td>
+
+						<td>Code</td>
 						<td>UserName</td>
-						<td>amount</td>
+
 						<td>unit price</td>
 						<td>status</td>
 						<td>date created</td>
 						<td>address</td>
 
-						<td colspan="2"></td>
+						<td colspan="2">thao tác</td>
 					</tr>
 				</thead>
 
@@ -116,18 +182,21 @@
 					<c:forEach items="${ listHoaDon }" var="list" varStatus="i">
 						<tr>
 							<td>${ i.index +1 }</td>
-							<td><img src="getimage/${ list.chiTietSP.hinhAnh }" alt=""
-								class="anh" style="width: 100px"></td>
-							<td>${ list.chiTietSP.sanPham.ten}</td>
-							<td>${ list.hoaDon.tenNguoiNhan }</td>
-							<td>${ list.soLuong }</td>
-							<td>${ list.dongia }</td>
-							<td>${ list.hoaDon.trangThaiTT == 0?"chờ thanh toán":  list.hoaDon.trangThaiTT == -1?"đơn đã hủy":"đã thanh toán"}</td>
-							<td>${ list.hoaDon.tgTao}</td>
-							<td>${ list.hoaDon.diaChi }</td>
+
+							<td>${ list.ma}</td>
+							<td>${ list.khachHang.ten }</td>
+
+							<td>${ list.tongTien }</td>
+							<td>${ list.trangThaiTT == 0?"chờ thanh toán":  list.trangThaiTT == -1?"đơn đã hủy":"đã thanh toán"}</td>
+							<td>${ list.tgTao}</td>
+							<td>${ list.diaChi }</td>
 
 
-							<td></td>
+							<td><button type="button" class="btn btn-primary"
+									data-bs-toggle="modal" data-bs-target="#exampleModal"
+									data-bs-whatever="@mdo"
+									onclick="openModalRemoveSinhVien(${list.id})">xem chi
+									tiết</button></td>
 							<td>
 								<form
 									action="${ pageContext.request.contextPath }/hoaDon/update/+${list.id}"
@@ -143,131 +212,132 @@
 
 
 			</table>
-			<div class="modal fade" id="exampleModal" tabindex="-1"
-				aria-labelledby="exampleModalLabel" aria-hidden="true">
-				<div class="modal-dialog">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h5 class="modal-title" id="exampleModalLabel">New message</h5>
-							<button type="button" class="btn-close" data-bs-dismiss="modal"
-								aria-label="Close"></button>
-						</div>
-						<div class="modal-body">
-							<form:form modelAttribute="listHoaDonD"
-								action="${ pageContext.request.contextPath }/hoaDon/save"
-								method="POST">
-								<div class="row col-12">
-									<label class="col-4">ID SP:</label> <input type="text"
-										id="soLuong" name="soLuong">
-								</div>
-								<div class="mb-3">
-									<label for="message-text" class="col-form-label">Message:</label>
-									<textarea class="form-control" id="message-text"></textarea>
 
-								</div>
-								<input type="hidden" id="id" name="id">
-							</form:form>
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-secondary"
-								data-bs-dismiss="modal">Close</button>
-							<button type="button" class="btn btn-primary">Send
-								message</button>
-						</div>
+		</div>
+		<div class="modal fade" id="exampleModal" tabindex="-1"
+			aria-labelledby="exampleModalLabel" aria-hidden="true" >
+			<div class="modal-dialog" >
+				<div class="modal-content" style ="width: 700px;">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">New message</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal"
+							aria-label="Close"></button>
 					</div>
+					
+					<table id="custom-table"
+						class="table table-bordered m-table d-sm-table m-table--head-bg-primary">
+						<thead>
+							<tr>
+								<td>STT</td>
+							<td>Hình ảnh</td>
+							<td>Tên sản phẩm</td>
+							<td>số lượng</td>
+							<td>ngày tạo</td>
+							<td>Giá bán</td>
+						
+							</tr>
+						</thead>
+						<tbody id="dataHoaDon">
+
+						</tbody>
+					</table>
+
+					<button type="button" class="btn btn-secondary"
+						data-bs-dismiss="modal">Close</button>
+					
 				</div>
 			</div>
 		</div>
+	</div>
 
-		<div class="icon">
-			<div class="iconto">
-				<div class="icon1">
-					<img src="img/icon1.svg" alt="" class="xx">
-				</div>
-				<div class="qwe">
-					<h5 class="o">GIAO HÀNG MIỄN PHÍ & TRẢ LẠI</h5>
-					<p class="p">Miễn phí vận chuyển</p>
-				</div>
+	<div class="icon">
+		<div class="iconto">
+			<div class="icon1">
+				<img src="img/icon1.svg" alt="" class="xx">
 			</div>
-			<div class="icon2">
-				<div class="icon1">
-					<img src="img/icon2.svg" alt="" class="bbbb">
-				</div>
-				<div class="qwe">
-					<h5 class="o">ĐẢM BẢO LẠI TIỀN</h5>
-					<p class="p">Đảm bảo hoàn tiền trong 30 ngày</p>
-				</div>
-			</div>
-			<div class="icon3">
-				<div class="icon1">
-					<img src="img/icon3.svg" alt="" class="ggg">
-				</div>
-				<div class="qwe">
-					<h5 class="o">THANH TOÁN AN TOÀN</h5>
-					<p class="p">Tất cả các khoản thanh toán được bảo đảm</p>
-				</div>
-			</div>
-			<div class="icon4">
-				<div class="icon1">
-					<img src="img/icon4.svg" alt="" class="jj">
-				</div>
-				<div class="qwe">
-					<h5 class="o">03-89-30-24-72</h5>
-					<p class="p">Thời gian hàng giờ cho giao hàng.</p>
-				</div>
+			<div class="qwe">
+				<h5 class="o">GIAO HÀNG MIỄN PHÍ & TRẢ LẠI</h5>
+				<p class="p">Miễn phí vận chuyển</p>
 			</div>
 		</div>
-		<div class="mg">
-			<div class="r1">
-				<h3 class="ty">VỀ CHÚNG TÔI</h3>
-				<p class="it">Nam nec tellus a odio tincidunt auctor a ornare
-					odio redmore</p>
-				<h3 class="mn">THỜI GIAN MỞ CỬA</h3>
-				<p class="it">
-					Thứ Hai - Thứ Sáu .... 8,00 đến 18:00 <br> Thứ Bảy
-					............ 9.00 đến 21.00 <br> Chủ nhật ............ 10:00
-					đến 21:00
-				</p>
+		<div class="icon2">
+			<div class="icon1">
+				<img src="img/icon2.svg" alt="" class="bbbb">
 			</div>
-			<div class="r2">
-				<h3 class="ty">MENU</h3>
-				<a href="" class="qq">Trang chủ</a> <br> <a href="" class="qq">Cửa
-					hàng</a> <br> <a href="" class="qq">Giỏ hàng</a> <br> <a
-					href="" class="qq">Giớ thiệu</a> <br> <a href="" class="qq">Liên
-					hệ</a>
-
-			</div>
-			<div class="r3">
-				<h3 class="ty">DANH MỤC</h3>
-				<a href="" class="qq">Áo </a> <br> <a href="" class="qq">Quần</a>
-				<br> <a href="" class="qq">Giày</a> <br> <a href=""
-					class="qq">Túi xách</a> <br> <a href="" class="qq">Trang
-					Sức</a>
-			</div>
-			<div class="r4">
-				<h3 class="ty">CHÍNH SÁCH</h3>
-				<p class="it">Chính sách ưu đãi</p>
-				<p class="it">Chính sách bảo mật</p>
-				<p class="it">Chính sách giao nhận</p>
-				<p class="it">Chính sách đổi trả</p>
-
-
-
-
-			</div>
-			<div class="r5">
-				<h3 class="ty">ĐĂNG KÝ</h3>
-				<p class="it">Đăng ký để nhận được được thông tin mới nhất từ
-					chúng tôi.</p>
-				<div class="v">
-					<a href="">Đăng kí</a>
-
-				</div>
+			<div class="qwe">
+				<h5 class="o">ĐẢM BẢO LẠI TIỀN</h5>
+				<p class="p">Đảm bảo hoàn tiền trong 30 ngày</p>
 			</div>
 		</div>
-		<div class="endd">
-			<p class="fg">Nguyễn Quang Vinh-PH20805</p>
+		<div class="icon3">
+			<div class="icon1">
+				<img src="img/icon3.svg" alt="" class="ggg">
+			</div>
+			<div class="qwe">
+				<h5 class="o">THANH TOÁN AN TOÀN</h5>
+				<p class="p">Tất cả các khoản thanh toán được bảo đảm</p>
+			</div>
 		</div>
+		<div class="icon4">
+			<div class="icon1">
+				<img src="img/icon4.svg" alt="" class="jj">
+			</div>
+			<div class="qwe">
+				<h5 class="o">03-89-30-24-72</h5>
+				<p class="p">Thời gian hàng giờ cho giao hàng.</p>
+			</div>
+		</div>
+	</div>
+	<div class="mg">
+		<div class="r1">
+			<h3 class="ty">VỀ CHÚNG TÔI</h3>
+			<p class="it">Nam nec tellus a odio tincidunt auctor a ornare
+				odio redmore</p>
+			<h3 class="mn">THỜI GIAN MỞ CỬA</h3>
+			<p class="it">
+				Thứ Hai - Thứ Sáu .... 8,00 đến 18:00 <br> Thứ Bảy ............
+				9.00 đến 21.00 <br> Chủ nhật ............ 10:00 đến 21:00
+			</p>
+		</div>
+		<div class="r2">
+			<h3 class="ty">MENU</h3>
+			<a href="" class="qq">Trang chủ</a> <br> <a href="" class="qq">Cửa
+				hàng</a> <br> <a href="" class="qq">Giỏ hàng</a> <br> <a
+				href="" class="qq">Giớ thiệu</a> <br> <a href="" class="qq">Liên
+				hệ</a>
+
+		</div>
+		<div class="r3">
+			<h3 class="ty">DANH MỤC</h3>
+			<a href="" class="qq">Áo </a> <br> <a href="" class="qq">Quần</a>
+			<br> <a href="" class="qq">Giày</a> <br> <a href=""
+				class="qq">Túi xách</a> <br> <a href="" class="qq">Trang
+				Sức</a>
+		</div>
+		<div class="r4">
+			<h3 class="ty">CHÍNH SÁCH</h3>
+			<p class="it">Chính sách ưu đãi</p>
+			<p class="it">Chính sách bảo mật</p>
+			<p class="it">Chính sách giao nhận</p>
+			<p class="it">Chính sách đổi trả</p>
+
+
+
+
+		</div>
+		<div class="r5">
+			<h3 class="ty">ĐĂNG KÝ</h3>
+			<p class="it">Đăng ký để nhận được được thông tin mới nhất từ
+				chúng tôi.</p>
+			<div class="v">
+				<a href="">Đăng kí</a>
+
+			</div>
+		</div>
+	</div>
+	<div class="endd">
+		<p class="fg">Nguyễn Quang Vinh-PH20805</p>
+	</div>
 	</div>
 </body>
 </html>

@@ -26,6 +26,8 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.ManyToAny;
 import org.hibernate.annotations.Nationalized;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Data;
 
 /**
@@ -75,7 +77,7 @@ public class GioHang {
 
 	@Column(name = "ngay_sua")
 	private String ngaySua;
-
+	@JsonIgnore
 	@OneToMany(mappedBy = "gioHang", fetch = FetchType.EAGER)
 	List<GioHangChiTiet> list = new ArrayList<>();
 

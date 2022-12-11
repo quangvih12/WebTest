@@ -19,6 +19,7 @@ import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Nationalized;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.Data;
@@ -52,7 +53,7 @@ public class MauSac {
 
 	@Column(name = "ngay_tao")
 	private String ngayTao;
-
+	@JsonIgnore
 	@OneToMany(mappedBy = "mauSac", fetch = FetchType.EAGER)
 	List<ChiTietSanPham> list = new ArrayList<>();
 

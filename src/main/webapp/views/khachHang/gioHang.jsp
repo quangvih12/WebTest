@@ -58,6 +58,8 @@
 								Hàng</a></li>
 						<li><a href="${ pageContext.request.contextPath }/hoaDon">Hóa
 								Đơn</a></li>
+						<li><a href="${ pageContext.request.contextPath }/DangXuat">Đăng
+								Xuất</a></li>
 					</ul>
 
 				</nav>
@@ -68,14 +70,14 @@
 
 		<div class="mt-5 col-10 offset-1 border border-primary p-2">
 			<h1 style="text-align: center">GIỎ HÀNG</h1>
-			<form:form 	action="${ pageContext.request.contextPath }/hoaDon/form"
-										method="get" class="form"> 
+			<form:form action="${ pageContext.request.contextPath }/hoaDon/form"
+				method="get" class="form">
 				<table class="table table-strip table-dark mt-3">
 
 					<thead>
 						<tr>
-							<td><input type="checkbox" id="checkbox" name="id"
-									value="0">  </td>
+							<td><input type="checkbox" id="checkbox" name="id" value="0">
+							</td>
 							<td>STT</td>
 							<td>Hình ảnh</td>
 							<td>Tên sản phẩm</td>
@@ -89,11 +91,11 @@
 
 					<tbody>
 						<c:forEach items="${ listGioHang }" var="list" varStatus="i">
-							<tr> 
+							<tr>
 								<td><input type="checkbox" id="checkbox" name="id"
-									value="${ list.id}">  </td>
-									<td>${ i.index +1 }</td>
-								
+									value="${ list.id}"></td>
+								<td>${ i.index +1 }</td>
+
 								<td><img src="getimage/${ list.chiTietSP.hinhAnh }" alt=""
 									class="anh" style="width: 100px"></td>
 								<td>${ list.chiTietSP.sanPham.ten }</td>
@@ -110,14 +112,10 @@
 
 
 
-								<td>
-								
-								<a class="btn btn-primary"
-									href="${ pageContext.request.contextPath }/hoaDon/formThanhToanGH/+${list.id} "> mua</a>
-								</td>
-								<td>
-									
-									<a class="btn btn-primary"
+								<td><a class="btn btn-primary"
+									href="${ pageContext.request.contextPath }/hoaDon/formThanhToanGH/+${list.id} ">
+										mua</a></td>
+								<td><a class="btn btn-primary"
 									href="${ pageContext.request.contextPath }/gioHang/delete/+${list.id} ">xóa</a>
 								</td>
 							</tr>
@@ -128,9 +126,9 @@
 				</table>
 
 				<input type="submit" value="Mua" class="btn btn-primary">
-			
-	</form:form> 	
-			
+
+			</form:form>
+
 		</div>
 
 

@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import edu.poly.demoDuAn2.Controller.LoginController;
 import edu.poly.demoDuAn2.entity.GioHang;
 import edu.poly.demoDuAn2.entity.GioHangChiTiet;
+import edu.poly.demoDuAn2.entity.KhachHang;
 import edu.poly.demoDuAn2.reponsitory.GioHangCTRepository;
 import edu.poly.demoDuAn2.reponsitory.GioHangReponsitory;
 
@@ -36,10 +38,11 @@ public class GioHangCTController {
 
 	@GetMapping()
 	public String index(Model models) {
-
-		List<GioHangChiTiet> list = gioHangCTRepo.findAll();
+		String tenKH = LoginController.getCurrentLoginUsername();
+		System.out.println(tenKH);
+		List<GioHangChiTiet> list = gioHangCTRepo.findAllByTen(tenKH);
 		models.addAttribute("listGioHang", list);
-
+		 System.out.println(tenKH);
 		return "khachHang/gioHang";
 	}
 
@@ -60,7 +63,12 @@ public class GioHangCTController {
 
 		Calendar c = Calendar.getInstance();
 		String t = (c.get(Calendar.DATE) + "-" + (c.get(Calendar.MONTH) + 1) + "-" + c.get(Calendar.YEAR));
-
+        
+	// add khách hàng
+		int IdKH = LoginController.getCurrentLoginId();
+		KhachHang kh = new KhachHang();
+		kh.setId(IdKH);
+		gh.setKhachHang(kh);
 		gh.setNgayTao(t);
 		this.gioHangRepo.save(gh);
 

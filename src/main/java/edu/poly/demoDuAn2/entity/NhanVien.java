@@ -23,6 +23,8 @@ import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Nationalized;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Data;
 
 /**
@@ -93,11 +95,11 @@ public class NhanVien {
 
 	@Column(name = "ngay_sua")
 	private String ngaySua;
-
+	@JsonIgnore
 	@OneToMany(mappedBy = "nhanVien", fetch = FetchType.EAGER)
 	@Fetch(value = FetchMode.SUBSELECT)
 	private List<HoaDon> listt = new ArrayList<>();
-
+	@JsonIgnore
 	@OneToMany(mappedBy = "idNV", fetch = FetchType.EAGER)
 	@Fetch(value = FetchMode.SUBSELECT)
 	private List<GioHang> lists = new ArrayList<>();

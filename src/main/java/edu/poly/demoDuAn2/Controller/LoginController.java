@@ -21,6 +21,9 @@ public class LoginController {
 	@Autowired
 	private HttpServletRequest request;
 
+	private static String currentLoginUsername;
+	private static Integer currentLoginId;
+
 	@GetMapping("/login")
 	public String getLoginForm() {
 		return "/auth/login";
@@ -30,7 +33,10 @@ public class LoginController {
 	public String login(@RequestParam("email") String email, @RequestParam("password") String password) {
 
 		KhachHang entity = this.khachhangRepo.findByEmail(email);
-
+		currentLoginUsername = entity.getTen();
+	//	System.out.println(currentLoginUsername);
+		
+		currentLoginId = entity.getId();
 		HttpSession session = request.getSession();
 		if (entity == null) {
 			session.setAttribute("error", "Sai email hoặc mật khẩu");
@@ -50,6 +56,14 @@ public class LoginController {
 
 		session.setAttribute("user", entity);
 		return "redirect:/home";
+	}
+
+	public static String getCurrentLoginUsername() {
+		return currentLoginUsername;
+	}
+	
+	public static Integer getCurrentLoginId() {
+		return currentLoginId;
 	}
 
 }

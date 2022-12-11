@@ -25,6 +25,7 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Nationalized;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.Data;
@@ -93,11 +94,11 @@ public class ChiTietSanPham {
 
 	@Column(name = "ngay_sua")
 	private String ngaySua;
-
+	@JsonIgnore
 	@OneToMany(mappedBy = "chiTietSP", fetch = FetchType.EAGER)
 	@Fetch(value = FetchMode.SUBSELECT)
 	List<hoaDonChiTiet> listt = new ArrayList<>();
-
+	@JsonIgnore
 	@OneToMany(mappedBy = "chiTietSP", fetch = FetchType.EAGER)
 	@Fetch(value = FetchMode.SUBSELECT)
 	List<GioHangChiTiet> listtt = new ArrayList<>();

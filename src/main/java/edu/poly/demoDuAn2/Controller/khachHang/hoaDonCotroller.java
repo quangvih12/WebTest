@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import edu.poly.demoDuAn2.Controller.LoginController;
 import edu.poly.demoDuAn2.Controller.MailerController;
 import edu.poly.demoDuAn2.Mail.Mailer;
 import edu.poly.demoDuAn2.entity.ChiTietSanPham;
@@ -58,25 +59,35 @@ public class hoaDonCotroller {
 
 	@GetMapping()
 	public String hoaDon(Model models) {
-
-		List<hoaDonChiTiet> list = hoaDonCTRepo.findAll();
+		String tenKH = LoginController.getCurrentLoginUsername();
+		List<HoaDon> list = hoaDonRepo.findAllByTen(tenKH);
 		models.addAttribute("listHoaDon", list);
 
 		return "khachHang/hoaDon";
 	}
+	
+//	@GetMapping(value = "/getById/{id}")
+//	public String hoaDonHuy(Model models, @PathVariable("id") Integer id) {
+//		//String tenKH = LoginController.getCurrentLoginUsername();
+//		System.out.println(id);
+//		List<HoaDon> list =	 this.hoaDonRepo.findAllById(id);
+//		models.addAttribute("listAllById", list);
+//
+//		return "";
+//	}
 
 	@PostMapping(value = "/update/{id}")
-	public String updateHoaDon(Model models, @PathVariable("id") Integer id, hoaDonChiTiet hoaDonCT) {
-		if (hoaDonCT != null) {
-			hoaDonChiTiet hoaDon = this.hoaDonCTRepo.getById(id);
+	public String updateHoaDon(Model models, @PathVariable("id") Integer id, HoaDon hoaDonn) {
+		if (hoaDonn != null) {
+			HoaDon hoaDon = this.hoaDonRepo.getById(id);
+			System.out.println(hoaDon.getId());
 			if (hoaDon != null) {
-				hoaDonCT.setTrangthai(2);
-				/// System.out.println(hoaDonCT.getTrangthai());
-				hoaDon.setTrangthai(hoaDonCT.getTrangthai());
-
-				this.hoaDonCTRepo.save(hoaDon);
-//				System.out.println("ok");
-				return "redirect:/hoaDon";
+				hoaDon.setTrangThaiTT(-1);
+				 System.out.println(hoaDon.getTrangThaiTT());
+			//	hoaDon.setTrangThaiTT(id);
+				this.hoaDonRepo.save(hoaDon);
+			//	System.out.println("ok");
+				return "";
 			}
 		}
 		return "";
@@ -128,7 +139,9 @@ public class hoaDonCotroller {
 
 			return "khachHang/thanhToanGH";
 		} else {
-			List<GioHangChiTiet> list = gioHangRepo.findAll();
+			String tenKH = LoginController.getCurrentLoginUsername();
+
+			List<GioHangChiTiet> list = gioHangRepo.findAllByTen(tenKH);
 			models.addAttribute("listGioHangCT", list);
 			models.addAttribute("listHoaDonD", hoaDonCT);
 
@@ -204,6 +217,7 @@ public class hoaDonCotroller {
 		NhanVien nv = new NhanVien();
 		nv.setId(1);
 		hd.setNhanVien(nv);
+
 //	    tao hoa don
 		HoaDon hdd = this.hoaDonRepo.save(hd);
 		hdd.setMa("HD" + hdd.getId());
@@ -216,10 +230,12 @@ public class hoaDonCotroller {
 
 		// tao hoa don ct
 		hoaDonChiTiet hdv = this.hoaDonCTRepo.save(hoaDonCT);
-
-		// xoa sp trong gh
-		GioHangChiTiet gh = this.gioHangRepo.findAllByIdSanPham(hoaDonCT.getChiTietSP().getId());
-		System.out.println(gh.getId());
+//
+//		// xoa sp trong gh
+		String tenKH = LoginController.getCurrentLoginUsername();
+		int idSP = hoaDonCT.getChiTietSP().getId();
+		GioHangChiTiet gh = this.gioHangRepo.findAllByIdSanPham(idSP, tenKH);
+		// System.out.println(gh.getId());
 		this.gioHangRepo.deleteById(gh.getId());
 
 		// gui mail
@@ -339,7 +355,9 @@ public class hoaDonCotroller {
 		nv.setId(1);
 		hd.setNhanVien(nv);
 
-		List<GioHangChiTiet> list = gioHangRepo.findAll();
+		String tenKH = LoginController.getCurrentLoginUsername();
+
+		List<GioHangChiTiet> list = gioHangRepo.findAllByTen(tenKH);
 		for (GioHangChiTiet o : list) {
 			// System.out.println(o.getChiTietSP().getId());
 			double v;
@@ -364,7 +382,10 @@ public class hoaDonCotroller {
 			this.hoaDonCTRepo.saveAll(List.of(hoaDonCT));
 
 			// xoa sp trong gh
-			GioHangChiTiet gh = this.gioHangRepo.findAllByIdSanPham(hoaDonCT.getChiTietSP().getId());
+
+			int idSP = o.getChiTietSP().getId();
+			// System.out.println(idSP);
+			GioHangChiTiet gh = this.gioHangRepo.findAllByIdSanPham(idSP, tenKH);
 			System.out.println(gh.getId());
 			this.gioHangRepo.deleteById(gh.getId());
 

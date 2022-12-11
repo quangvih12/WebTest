@@ -68,7 +68,8 @@
 	<div class="mt-5  offset-1">
 		<form:form onsubmit="return kt()" modelAttribute="listHoaDonD"
 			method="post"
-			action="${ pageContext.request.contextPath }/hoaDon/saveTong" style="width: 903px;margin-left: 7%">
+			action="${ pageContext.request.contextPath }/hoaDon/saveTong"
+			style="width: 903px;margin-left: 7%">
 			<div>
 
 
@@ -83,20 +84,21 @@
 								<td>Id</td>
 								<td>Tên sản phẩm</td>
 								<td>Giá Bán</td>
-								<td>Thương hiệu</td>
+
 
 								<td>Màu sắc</td>
+								<td>Thương hiệu</td>
 
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach items="${ listGioHangCT }" var="list" >
+							<c:forEach items="${ listGioHangCT }" var="list">
 								<tr>
 									<td><img src="/getimage/${list.chiTietSP.hinhAnh }" alt=""
 										class="nt" style="width: 200px; height: 143px"></td>
-									<td><form:input path="chiTietSP" value="${ list.chiTietSP.id} "
-											class="form-control" autocomplete="off" readonly="true"
-											style="width: 35px" /></td>
+									<td><form:input path="chiTietSP"
+											value="${ list.chiTietSP.id} " class="form-control"
+											autocomplete="off" readonly="true" style="width: 35px" /></td>
 									<td>${ list.chiTietSP.sanPham.ten }</td>
 									<td>${ list.chiTietSP.giaBan}đ</td>
 									<td>${ list.chiTietSP.mauSac.ten }</td>
@@ -113,15 +115,14 @@
 					<label for="email">Email</label> <input type="email" name="email"
 						id="email" class="form-control" />
 				</div>
-					<div class="row col-12">
+				<div class="row col-12">
 					<label class="col-4">Họ và tên:</label>
 					<form:input path="hoaDon.tenNguoiNhan" class="form-control"
 						autocomplete="off" />
 				</div>
 				<div class="row col-12">
 					<label class="col-4">Số lượng:</label>
-					<form:input path="soLuong" class="form-control"
-						autocomplete="off" />
+					<form:input path="soLuong" class="form-control" autocomplete="off" />
 				</div>
 				<div class="row col-12">
 					<label class="col-4">Đơn giá:</label>

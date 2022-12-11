@@ -66,6 +66,8 @@
 								Hàng</a></li>
 						<li><a href="${ pageContext.request.contextPath }/hoaDon">Hóa
 								Đơn</a></li>
+						<li><a href="${ pageContext.request.contextPath }/DangXuat">Đăng
+								Xuất</a></li>
 					</ul>
 
 				</nav>
@@ -142,7 +144,8 @@
 				<br>
 				<h2>DANH MỤC SẢN PHẨM</h2>
 				<ul class="item">
-					<c:forEach items="${ pageData.content }" begin= "1" end ="9" var="list">
+					<c:forEach items="${ pageData.content }" begin="1" end="9"
+						var="list">
 						<li>
 							<div class="pitem">
 								<div class="top">

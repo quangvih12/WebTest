@@ -56,6 +56,9 @@
 							Hàng</a></li>
 					<li><a href="${ pageContext.request.contextPath }/hoaDon">hóa
 							đơn</a></li>
+					<li><a href="${ pageContext.request.contextPath }/DangXuat">Đăng
+							Xuất</a></li>
+
 				</ul>
 
 			</nav>
@@ -109,8 +112,7 @@
 				</div>
 				<div class="row col-12">
 					<label class="col-4">Số lượng:</label>
-					<form:input path="soLuong" class="form-control"
-						autocomplete="off" />
+					<form:input path="soLuong" class="form-control" autocomplete="off" />
 				</div>
 				<div class="row col-12">
 					<label class="col-4">Đơn giá:</label>
@@ -165,9 +167,9 @@
 				email.style.background = "white";
 			}
 			if (x == 0) {
-				  sL.style.border = "1px solid red";
-				  alert('Số lượng không được là 0')
-				
+				sL.style.border = "1px solid red";
+				alert('Số lượng không được là 0')
+
 				return false;
 			} else {
 				sL.style.border = "none";

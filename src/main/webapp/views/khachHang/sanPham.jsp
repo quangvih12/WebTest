@@ -60,6 +60,9 @@
 								Hàng</a></li>
 						<li><a href="${ pageContext.request.contextPath }/hoaDon">Hóa
 								Đơn</a></li>
+						<li><a href="${ pageContext.request.contextPath }/DangXuat">Đăng
+								Xuất</a></li>
+
 					</ul>
 
 				</nav>
@@ -104,7 +107,7 @@
 
 
 				</ul>
-			
+
 			</div>
 
 		</div>

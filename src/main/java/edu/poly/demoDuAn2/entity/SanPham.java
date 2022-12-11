@@ -19,6 +19,7 @@ import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Nationalized;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.Data;
@@ -76,7 +77,7 @@ public class SanPham {
 	@Nationalized
 	@Column(name = "Chuc_nang")
 	private String ChucNang;
-
+	@JsonIgnore
 	@OneToMany(mappedBy = "sanPham", fetch = FetchType.EAGER)
 	private List<ChiTietSanPham> list = new ArrayList<>();
 

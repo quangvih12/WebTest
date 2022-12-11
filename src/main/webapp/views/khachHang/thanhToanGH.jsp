@@ -56,6 +56,9 @@
 							Hàng</a></li>
 					<li><a href="${ pageContext.request.contextPath }/hoaDon">hóa
 							đơn</a></li>
+					<li><a href="${ pageContext.request.contextPath }/DangXuat">Đăng
+							Xuất</a></li>
+
 				</ul>
 
 			</nav>
@@ -84,7 +87,7 @@
 						style="width: 35px" />
 				</div>
 				<div class="row col-12">
-					<label class="col-4">Tên SP:</label> <label class="col-6" >
+					<label class="col-4">Tên SP:</label> <label class="col-6">
 						${ list.sanPham.ten }</label>
 				</div>
 				<div class="row col-12">
@@ -109,8 +112,8 @@
 				</div>
 				<div class="row col-12">
 					<label class="col-4">Số lượng:</label>
-					<form:input path="soLuong" class="form-control"
-						id="soLuong" value="${ listt.soLuong} " autocomplete="off" />
+					<form:input path="soLuong" class="form-control" id="soLuong"
+						value="${ listt.soLuong} " autocomplete="off" />
 				</div>
 				<div class="row col-12">
 					<label class="col-4">Đơn giá:</label>
@@ -171,8 +174,8 @@
 
 			//Thông báo thành công
 			if (email.value.length != 0 && sL.value.length != 0
-					
-					)
+
+			)
 				alert("Mua thành công");
 		}
 	</script>

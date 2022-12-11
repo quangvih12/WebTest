@@ -24,6 +24,7 @@ import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Nationalized;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.Data;
@@ -105,7 +106,7 @@ public class HoaDon {
 	@Nationalized
 	@Column(name = "Ghi_Chu")
 	private String ghiChu;
-
+	@JsonIgnore
 	@OneToMany(mappedBy = "hoaDon", fetch = FetchType.EAGER)
 	private List<hoaDonChiTiet> lstHDCT = new ArrayList<>();
 

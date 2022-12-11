@@ -62,9 +62,8 @@
 										<li><a href="">khuyên tai</a></li>
 									</ul>
 							</ul></li>
-						<li><a href="${ pageContext.request.contextPath }/login">Giỏ
-								Hàng</a></li>
 						<li><a href="${ pageContext.request.contextPath }/login">Đăng Nhập</a></li>
+						<li><a href="${ pageContext.request.contextPath }/dangky">Đăng Ký</a></li>
 					</ul>
 
 				</nav>
