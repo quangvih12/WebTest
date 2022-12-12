@@ -42,9 +42,9 @@ public class signUpController {
 
 		String hashedPassword = HashUtil.hash(entity.getMatKhau());
 		entity.setMatKhau(hashedPassword);
-
-		this.khachhangRepo.save(entity);
-
+		entity.setTrangthai(1);
+	KhachHang kh=	this.khachhangRepo.save(entity);
+	
 		return "redirect:/login";
 
 	}
