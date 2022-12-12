@@ -41,9 +41,13 @@ function openModalRemoveSinhVien(Id) {
         dataType: 'json',
         success:function (responseData) {
             console.log('responseData', responseData)
-         
+        
             $("#dataHoaDon").html(responseData.map(function (items) {
-              
+            	 $("#exampleModal #ma").val(items.hoaDon.ma);
+            	 $("#exampleModal #ten").val(items.hoaDon.khachHang.ten);
+            	 $("#exampleModal #status").val(items.hoaDon.trangThaiTT == 0?"chờ thanh toán":  items.hoaDon.trangThaiTT == -1?"đơn đã hủy":"đã thanh toán");
+            	 $("#exampleModal #date").val(items.hoaDon.tgTao);
+            	 $("#exampleModal #address").val(items.hoaDon.khachHang.diaChi);
                 console.log('itemid', items.id)
             	return `
            
@@ -57,6 +61,7 @@ function openModalRemoveSinhVien(Id) {
 				<td>\${ items.hoaDon.tgTao }</td>
 				<td>\${ items.dongia }</td>
 				</tr>
+				
                 `
             }))
 	        
@@ -215,129 +220,153 @@ function openModalRemoveSinhVien(Id) {
 
 		</div>
 		<div class="modal fade" id="exampleModal" tabindex="-1"
-			aria-labelledby="exampleModalLabel" aria-hidden="true" >
-			<div class="modal-dialog" >
-				<div class="modal-content" style ="width: 700px;">
+			aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content" style="width: 700px;">
 					<div class="modal-header">
 						<h5 class="modal-title" id="exampleModalLabel">New message</h5>
 						<button type="button" class="btn-close" data-bs-dismiss="modal"
 							aria-label="Close"></button>
 					</div>
-					
+
 					<table id="custom-table"
 						class="table table-bordered m-table d-sm-table m-table--head-bg-primary">
 						<thead>
 							<tr>
 								<td>STT</td>
-							<td>Hình ảnh</td>
-							<td>Tên sản phẩm</td>
-							<td>số lượng</td>
-							<td>ngày tạo</td>
-							<td>Giá bán</td>
-						
+								<td>Hình ảnh</td>
+								<td>Tên sản phẩm</td>
+								<td>số lượng</td>
+								<td>ngày tạo</td>
+								<td>Giá bán</td>
+
 							</tr>
 						</thead>
 						<tbody id="dataHoaDon">
 
 						</tbody>
+
 					</table>
 
-					<button type="button" class="btn btn-secondary"
-						data-bs-dismiss="modal">Close</button>
-					
+					<div class="row col-12">
+						<label class="col-4">Mã hóa đơn:</label> <input class="form-control"
+							id="ma" autocomplete="off" readonly="true"
+							style="width: 600px; margin-left: 40px;">
+					</div>
+					<div class="row col-12">
+						<label class="col-4">tên khách hàng:</label> <input class="form-control"
+							id="ten" autocomplete="off" readonly="true"style="width: 600px; margin-left: 40px;" />
+					</div>
+					<div class="row col-12">
+						<label class="col-4">trạng thái:</label> <input class="form-control"
+							id="status" autocomplete="off" readonly="true" style="width: 600px; margin-left: 40px;"/>
+					</div>
+					<div class="row col-12">
+						<label class="col-4">ngày tạo:</label> <input class="form-control"
+							id="date" autocomplete="off" readonly="true" style="width: 600px; margin-left: 40px;"/>
+					</div>
+					<div class="row col-12">
+						<label class="col-4">địa chỉ:</label> <input class="form-control"
+							id="address" autocomplete="off" readonly="true" style="width: 600px; margin-left: 40px;"/>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary"
+							data-bs-dismiss="modal">Close</button>
+
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
 
-	<div class="icon">
-		<div class="iconto">
-			<div class="icon1">
-				<img src="img/icon1.svg" alt="" class="xx">
+		<div class="icon">
+			<div class="iconto">
+				<div class="icon1">
+					<img src="img/icon1.svg" alt="" class="xx">
+				</div>
+				<div class="qwe">
+					<h5 class="o">GIAO HÀNG MIỄN PHÍ & TRẢ LẠI</h5>
+					<p class="p">Miễn phí vận chuyển</p>
+				</div>
 			</div>
-			<div class="qwe">
-				<h5 class="o">GIAO HÀNG MIỄN PHÍ & TRẢ LẠI</h5>
-				<p class="p">Miễn phí vận chuyển</p>
+			<div class="icon2">
+				<div class="icon1">
+					<img src="img/icon2.svg" alt="" class="bbbb">
+				</div>
+				<div class="qwe">
+					<h5 class="o">ĐẢM BẢO LẠI TIỀN</h5>
+					<p class="p">Đảm bảo hoàn tiền trong 30 ngày</p>
+				</div>
+			</div>
+			<div class="icon3">
+				<div class="icon1">
+					<img src="img/icon3.svg" alt="" class="ggg">
+				</div>
+				<div class="qwe">
+					<h5 class="o">THANH TOÁN AN TOÀN</h5>
+					<p class="p">Tất cả các khoản thanh toán được bảo đảm</p>
+				</div>
+			</div>
+			<div class="icon4">
+				<div class="icon1">
+					<img src="img/icon4.svg" alt="" class="jj">
+				</div>
+				<div class="qwe">
+					<h5 class="o">03-89-30-24-72</h5>
+					<p class="p">Thời gian hàng giờ cho giao hàng.</p>
+				</div>
 			</div>
 		</div>
-		<div class="icon2">
-			<div class="icon1">
-				<img src="img/icon2.svg" alt="" class="bbbb">
+		<div class="mg">
+			<div class="r1">
+				<h3 class="ty">VỀ CHÚNG TÔI</h3>
+				<p class="it">Nam nec tellus a odio tincidunt auctor a ornare
+					odio redmore</p>
+				<h3 class="mn">THỜI GIAN MỞ CỬA</h3>
+				<p class="it">
+					Thứ Hai - Thứ Sáu .... 8,00 đến 18:00 <br> Thứ Bảy
+					............ 9.00 đến 21.00 <br> Chủ nhật ............ 10:00
+					đến 21:00
+				</p>
 			</div>
-			<div class="qwe">
-				<h5 class="o">ĐẢM BẢO LẠI TIỀN</h5>
-				<p class="p">Đảm bảo hoàn tiền trong 30 ngày</p>
-			</div>
-		</div>
-		<div class="icon3">
-			<div class="icon1">
-				<img src="img/icon3.svg" alt="" class="ggg">
-			</div>
-			<div class="qwe">
-				<h5 class="o">THANH TOÁN AN TOÀN</h5>
-				<p class="p">Tất cả các khoản thanh toán được bảo đảm</p>
-			</div>
-		</div>
-		<div class="icon4">
-			<div class="icon1">
-				<img src="img/icon4.svg" alt="" class="jj">
-			</div>
-			<div class="qwe">
-				<h5 class="o">03-89-30-24-72</h5>
-				<p class="p">Thời gian hàng giờ cho giao hàng.</p>
-			</div>
-		</div>
-	</div>
-	<div class="mg">
-		<div class="r1">
-			<h3 class="ty">VỀ CHÚNG TÔI</h3>
-			<p class="it">Nam nec tellus a odio tincidunt auctor a ornare
-				odio redmore</p>
-			<h3 class="mn">THỜI GIAN MỞ CỬA</h3>
-			<p class="it">
-				Thứ Hai - Thứ Sáu .... 8,00 đến 18:00 <br> Thứ Bảy ............
-				9.00 đến 21.00 <br> Chủ nhật ............ 10:00 đến 21:00
-			</p>
-		</div>
-		<div class="r2">
-			<h3 class="ty">MENU</h3>
-			<a href="" class="qq">Trang chủ</a> <br> <a href="" class="qq">Cửa
-				hàng</a> <br> <a href="" class="qq">Giỏ hàng</a> <br> <a
-				href="" class="qq">Giớ thiệu</a> <br> <a href="" class="qq">Liên
-				hệ</a>
-
-		</div>
-		<div class="r3">
-			<h3 class="ty">DANH MỤC</h3>
-			<a href="" class="qq">Áo </a> <br> <a href="" class="qq">Quần</a>
-			<br> <a href="" class="qq">Giày</a> <br> <a href=""
-				class="qq">Túi xách</a> <br> <a href="" class="qq">Trang
-				Sức</a>
-		</div>
-		<div class="r4">
-			<h3 class="ty">CHÍNH SÁCH</h3>
-			<p class="it">Chính sách ưu đãi</p>
-			<p class="it">Chính sách bảo mật</p>
-			<p class="it">Chính sách giao nhận</p>
-			<p class="it">Chính sách đổi trả</p>
-
-
-
-
-		</div>
-		<div class="r5">
-			<h3 class="ty">ĐĂNG KÝ</h3>
-			<p class="it">Đăng ký để nhận được được thông tin mới nhất từ
-				chúng tôi.</p>
-			<div class="v">
-				<a href="">Đăng kí</a>
+			<div class="r2">
+				<h3 class="ty">MENU</h3>
+				<a href="" class="qq">Trang chủ</a> <br> <a href="" class="qq">Cửa
+					hàng</a> <br> <a href="" class="qq">Giỏ hàng</a> <br> <a
+					href="" class="qq">Giớ thiệu</a> <br> <a href="" class="qq">Liên
+					hệ</a>
 
 			</div>
+			<div class="r3">
+				<h3 class="ty">DANH MỤC</h3>
+				<a href="" class="qq">Áo </a> <br> <a href="" class="qq">Quần</a>
+				<br> <a href="" class="qq">Giày</a> <br> <a href=""
+					class="qq">Túi xách</a> <br> <a href="" class="qq">Trang
+					Sức</a>
+			</div>
+			<div class="r4">
+				<h3 class="ty">CHÍNH SÁCH</h3>
+				<p class="it">Chính sách ưu đãi</p>
+				<p class="it">Chính sách bảo mật</p>
+				<p class="it">Chính sách giao nhận</p>
+				<p class="it">Chính sách đổi trả</p>
+
+
+
+
+			</div>
+			<div class="r5">
+				<h3 class="ty">ĐĂNG KÝ</h3>
+				<p class="it">Đăng ký để nhận được được thông tin mới nhất từ
+					chúng tôi.</p>
+				<div class="v">
+					<a href="">Đăng kí</a>
+
+				</div>
+			</div>
 		</div>
-	</div>
-	<div class="endd">
-		<p class="fg">Nguyễn Quang Vinh-PH20805</p>
-	</div>
+		<div class="endd">
+			<p class="fg">Nguyễn Quang Vinh-PH20805</p>
+		</div>
 	</div>
 </body>
 </html>
